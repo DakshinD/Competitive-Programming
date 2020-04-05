@@ -1,4 +1,8 @@
-bool isPrime(int ttttttt) {
-    for (int d = 2; d * d <= ttttttt; d++) if (ttttttt % d == 0) return false;
+bool isPrime(int num) {
+    for (int i = 2; i * i <= num; i++){ 
+        if (num %i == 0){
+            return false;
+        }
+    }
     return true;
 }
