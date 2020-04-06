@@ -21,16 +21,19 @@ const int dX[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 #define mp make_pair
 #define ft front()
 #define bk back()
-#define IOS  ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define sz(x) (int)x.size()
 #define all(x) (x).begin(), (x).end()
 #define FOR(i, a) for(int i = 0; i < a; i++)
 #define FoR(i, a) for(int i = 1; i <= a; i++)
 #define ROF(i, a) for (int i = (a)-1; i >= 0; i--)
 
+void readIn(string fileName) { freopen(fileName.c_str(), "r", stdin); }
+void writeOut(string fileName) { freopen(fileName.c_str(), "w", stdout); }
+void syncIO() { ios_base::sync_with_stdio(0); cin.tie(0); }
+void setIO(string str = ""){ syncIO(); if(sz(str)) { readIn(str+".in"), writeOut(str+".out"); }}
+
 int main(){
-    IOS;
-    /* freopen("-.in", "r", stdin); */
-    /* freopen("-.out", "w", stdout); */  
+    string fileName = "filename"; setIO(fileName);
 //-------------------------------------------------
 
     return 0;
@@ -45,3 +48,5 @@ int main(){
  * Make sure to calculate big O complexity
  * You are geniosity you got this
  */
+
+
