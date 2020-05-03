@@ -15,6 +15,8 @@ const ll INF = 1e18;
 const int mod = 1e9+7;
 const int dX[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
+#define whatis(x) cerr << #x << " is " << x << endl;
+#define endl "\n"
 #define f first
 #define s second
 #define pb push_back
@@ -26,6 +28,14 @@ const int dX[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 #define FOR(i, a) for(int i = 0; i < a; i++)
 #define FoR(i, a) for(int i = 1; i <= a; i++)
 #define ROF(i, a) for (int i = (a)-1; i >= 0; i--)
+#define error(args...) { string _s = #args; replace(_s.begin(), _s.end(), ',', ' '); stringstream _ss(_s); istream_iterator<string> _it(_ss); err(_it, args); }
+
+void err(istream_iterator<string> it) {}
+template<typename T, typename... Args>
+void err(istream_iterator<string> it, T a, Args... args) {
+	cerr << *it << " = " << a << endl;
+	err(++it, args...);
+}
 
 void readIn(string fileName) { freopen(fileName.c_str(), "r", stdin); }
 void writeOut(string fileName) { freopen(fileName.c_str(), "w", stdout); }
