@@ -18,12 +18,10 @@ set t_Co=256   " This is may or may not needed.
 
 let g:conoline_use_colorscheme_default_normal=1
 let g:conoline_use_colorscheme_default_insert=1
-let g:airline_theme='base16_gruvbox_dark_hard'
-
-set background=dark
-colorscheme gruvbox
-set gfn=Fixedsys:h17
+let g:airline_theme='base16_monokai'
 syntax on
+let g:sublimemonokai_term_italic = 1
+colorscheme sublimemonokai
 filetype indent on
 
 call plug#begin()
@@ -45,13 +43,18 @@ inoremap {}     {}
 imap jk         <Esc>
 map <C-a> <esc>ggVG<CR>
 set belloff=all
+
+if has("autocmd")
+	augroup templates
+		autocmd BufNewFile *.cpp exe "0r C:\\Users\\Dakshin Devanand\\cp\\templates\\".input("Template Name (cf - codeforces | usaco - usaco): ").".cpp" |
+			\ set syntax=cpp |
+			\ set filetype=cpp
+	augroup END
+endif
  
-autocmd BufNewFile *.cpp 0r C:\Users\Dakshin Devanand\Competitive Programming\template.cpp"autofills new C++ files with your template
+"autocmd BufNewFile *.cpp 0r C:\Users\Dakshin Devanand\cp\templates\usaco.cpp"autofills new C++ files with your template
 autocmd filetype cpp nnoremap <F9> :w <bar> !g++.exe -static -DONLINE_JUDGE -lm -s -x c++ -Wl,--stack=268435456 -Wall -Wextra -O2 -std=c++11 -D__USE_MINGW_ANSI_STDIO=0 -o %:r.exe %:r.cpp <CR> "F9 to compile
 autocmd filetype cpp nnoremap <F10> :!%:r<CR> "F10 to run
- 
-"tip: use a folder for competitive programming, with subfolders for each contest and a subfolder for your library.
-"then, to insert library code, do :r ../Library/FILENAME.cpp
 
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
