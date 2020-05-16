@@ -52,7 +52,7 @@ struct segmentTree{
         update(rangeLeft, rangeRight, value, 2*node+1, left, mid);
         update(rangeLeft, rangeRight, value, 2*node+2, mid+1, right);
 
-        segSum[node] = segSum[2*node+10] + segSum[2*node+2];
+        segSum[node] = segSum[2*node+1] + segSum[2*node+2];
         segMin[node] = min(segMin[2*node+1], segMin[2*node+2]);
     }
 
