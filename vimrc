@@ -1,7 +1,8 @@
-" Vim with all enhancements
 source $VIMRUNTIME/vimrc_example.vim
-set tabstop=4
+
+au GUIEnter * simalt ~x
 set nocompatible
+set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
@@ -10,18 +11,19 @@ set ruler
 set clipboard=unnamed
 set showcmd
 set incsearch
-"set shellslash
 set number
 set relativenumber
 set cino+=L0
-set t_Co=256   " This is may or may not needed.
+set t_Co=256
+set belloff=all
 
 let g:conoline_use_colorscheme_default_normal=1
 let g:conoline_use_colorscheme_default_insert=1
 let g:airline_theme='base16_monokai'
-syntax on
 let g:sublimemonokai_term_italic = 1
 colorscheme sublimemonokai
+
+syntax on
 filetype indent on
 
 call plug#begin()
@@ -42,7 +44,6 @@ inoremap {<CR>  {<CR>}<Esc>O
 inoremap {}     {}
 imap jk         <Esc>
 map <C-a> <esc>ggVG<CR>
-set belloff=all
 
 if has("autocmd")
 	augroup templates
@@ -51,10 +52,16 @@ if has("autocmd")
 			\ set filetype=cpp
 	augroup END
 endif
+
+autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++14 % -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F10> :!%:r<CR>
+autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $
  
-"autocmd BufNewFile *.cpp 0r C:\Users\Dakshin Devanand\cp\templates\usaco.cpp"autofills new C++ files with your template
-autocmd filetype cpp nnoremap <F9> :w <bar> !g++.exe -static -DONLINE_JUDGE -lm -s -x c++ -Wl,--stack=268435456 -Wall -Wextra -O2 -std=c++11 -D__USE_MINGW_ANSI_STDIO=0 -o %:r.exe %:r.cpp <CR> "F9 to compile
-autocmd filetype cpp nnoremap <F10> :!%:r<CR> "F10 to run
+"autocmd filetype cpp nnoremap <F9> :w <bar> !g++.exe -static -DONLINE_JUDGE -lm -s -x c++ -Wl,--stack=268435456 -Wall -Wextra -O2 -std=c++11 -D__USE_MINGW_ANSI_STDIO=0 -o %:r.exe %:r.cpp <CR> "F9 to compile
+"autocmd filetype cpp nnoremap <F10> :!%:r<CR> "F10 to run
+ 
+"tip: use a folder for competitive programming, with subfolders for each contest and a subfolder for your library.
+"then, to insert library code, do :r ../Library/FILENAME.cpp
 
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
@@ -93,4 +100,3 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
-
