@@ -1,3 +1,4 @@
+//if going into infinite loops, try (l+r+1)/2
 //find smallest value for which P(x) holds true
 while (l < r) {
   int mid = (l + r) / 2;
