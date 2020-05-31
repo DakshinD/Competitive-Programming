@@ -1,100 +1,62 @@
-struct segmentTree{
-    int originalValues[100001];
-    int segSum[100001]; //this array will be our segtree when calculating range sum queries
-    int segMin[100001]; //this array will be our segtree when calculating range minimum queries
-    int lazy[100001]; //this array stores values for our lazy propagation updates
+int SZ;
+vector<int> seg;
 
-    void createSegTree(int currentNode, int left, int right){
-        lazy[currentNode] = 0;
-        if(left == right){
-            segSum[currentNode] = segMin[currentNode] = originalValues[currentNode];
-            return;
-        }
-
-        int mid = (left + right)/2;
-        createSegTree(2*currentNode+1, left, mid); //this goes down the left path
-        createSegTree(2*currentNode+2, mid + 1, right); //this goes down our right path
-
-        segSum[currentNode] = segSum[2*currentNode+1]+segSum[2*currentNode+2];
-        segMin[currentNode] = min(segMin[2*currentNode+1], segMin[2*currentNode+2]);
+void setSize(int sz){
+    SZ = sz;
+    seg.resize(SZ*4)'
+}
+void build(int sz, int arr[]){
+    SZ = sz;
+    seg.resize(SZ*4);
+    bld(1, 0, SZ-1, arr);
+}
+int query(int a, int b){
+    return qry(a, b, 1, 0, SZ-1);
+}
+void update(int idx, int newVal){
+    upd(1, 0, SZ-1, idx, newVal);
+}
+//now for the actual functions
+int f(int a, int b){
+    return a + b; //change this for different problems, sum query, RMQ, etc.
+}
+void build(int node, int l, int r, T arr[]) {
+    if (l > r)
+        return;
+    if (l == r) {
+        seg[node] = arr[l];
+        return;
     }
-
-    void lazyUpdate(int currentNode, int left, int right){
-
-        if(lazy[currentNode] > 0){
-            segSum[currentNode] += (right - left + 1) * lazy[currentNode];
-            segMin[currentNode] += lazy[currentNode];
-
-            if(left != right){ //if we aren't updating a single node but rather a range
-                lazy[2*currentNode+1] += lazy[currentNode];
-                lazy[2*currentNode+2] += lazy[currentNode];
-            }
-
-            lazy[currentNode] = 0; //we rest this node's delta since we have already transferred the update down the subtree
-        }
+    int mid = (l + r) / 2;
+    build(node * 2, l, mid, arr);
+    build(node * 2 + 1, mid + 1, r, arr);
+    seg[node] = f(seg[node * 2], seg[node * 2 + 1]);
+}
+int qry(int a, int b, int node, int l, int r) {
+    if (l > b || r < a) {
+        return NINF;
     }
-
-    void update(int rangeLeft, int rangeRight, int value, int node, int left, int right){
-        if(right < left){
-            return;
-        }
-        lazyUpdate(node, left, right); //make sure we update the segTree before changing values
-        if(rangeRight < left || rangeLeft > right){
-            return;
-        }
-        if(rangeLeft <= left && right <= rangeRight){ //if the range we are looking for is contained totally inside, just update
-            lazy[node] += value;
-            lazyUpdate(node, left, right);
-            return;
-        }
-
-        int mid = (left + right)/2;
-        update(rangeLeft, rangeRight, value, 2*node+1, left, mid);
-        update(rangeLeft, rangeRight, value, 2*node+2, mid+1, right);
-
-        segSum[node] = segSum[2*node+1] + segSum[2*node+2];
-        segMin[node] = min(segMin[2*node+1], segMin[2*node+2]);
+    if (l >= a && r <= b) {
+        return seg[node];
     }
-
-    int sumQuery(int rangeLeft, int rangeRight, int node, int left, int right){
-        if(right < left){
-            return 0;
-        }
-
-        if(rangeRight < left && rangeLeft > right){ // 2 cases where our range is out of bounds of this node
-            return 0;
-        }
-
-        if(rangeLeft <= left && right <= rangeRight){ // if our range totally overlaps with this node's range
-            return segSum[node];
-        }
-
-        int mid = (left + right)/2;
-        int sum = 0;
-        sum += sumQuery(rangeLeft, rangeRight, 2*node+1, left, mid);
-        sum += sumQuery(rangeLeft, rangeRight, 2*node+2, mid+1, right);
-        return sum;
+    int mid = (l + r) / 2;
+    int n1 = query(a, b, node * 2, l, mid);
+    int n2 = query(a, b, node * 2 + 1, mid + 1, r);
+    if (n1 == NINF)
+        return n2;
+    if (n2 == NINF)
+        return n1;
+    return f(n1, n2);
+}
+void upd(int node, int l, int r, int idx, T newVal) {
+    if (idx < l || idx > r)
+        return;
+    if(l == r) {
+        seg[node] = newVal;
+        return;
     }
-
-    int minQuery(int rangeLeft, int rangeRight, int node, int left, int right){
-        if(right < left){
-            return INT_MAX;
-        }
-
-        if(rangeRight < left && rangeLeft > right){ // 2 cases where the given range is outside and not overlapping
-            return INT_MAX;
-        }
-
-        if(rangeLeft <= left && right <= rangeRight){ // if our range totally overlaps with this node's range
-            return segMin[node];
-        }
-
-        int mid = (left + right)/2;
-        int maxVal = INT_MAX;
-        maxVal = min(maxVal, minQuery(rangeLeft, rangeRight, 2*node+1, left, mid));
-        maxVal = min(maxVal, minQuery(rangeLeft, rangeRight, 2*node+2, mid+1, right));
-        return maxVal;
-    }
-
-    
-};
+    int mid = (l + r) / 2;
+    update(node * 2, l, mid, idx, newVal);
+    update(node * 2 + 1, mid + 1, r, idx, newVal);
+    seg[node] = f(seg[node*2], seg[node*2+1]);
+}
