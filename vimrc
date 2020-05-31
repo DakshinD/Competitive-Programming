@@ -56,12 +56,6 @@ endif
 autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++14 % -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F10> :!%:r<CR>
 autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $
- 
-"autocmd filetype cpp nnoremap <F9> :w <bar> !g++.exe -static -DONLINE_JUDGE -lm -s -x c++ -Wl,--stack=268435456 -Wall -Wextra -O2 -std=c++11 -D__USE_MINGW_ANSI_STDIO=0 -o %:r.exe %:r.cpp <CR> "F9 to compile
-"autocmd filetype cpp nnoremap <F10> :!%:r<CR> "F10 to run
- 
-"tip: use a folder for competitive programming, with subfolders for each contest and a subfolder for your library.
-"then, to insert library code, do :r ../Library/FILENAME.cpp
 
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
