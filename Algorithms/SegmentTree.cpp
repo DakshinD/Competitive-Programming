@@ -20,7 +20,7 @@ void update(int idx, int newVal){
 int f(int a, int b){
     return a + b; //change this for different problems, sum query, RMQ, etc.
 }
-void build(int node, int l, int r, T arr[]) {
+void build(int node, int l, int r, int arr[]) {
     if (l > r)
         return;
     if (l == r) {
@@ -48,7 +48,7 @@ int qry(int a, int b, int node, int l, int r) {
         return n1;
     return f(n1, n2);
 }
-void upd(int node, int l, int r, int idx, T newVal) {
+void upd(int node, int l, int r, int idx, int newVal) {
     if (idx < l || idx > r)
         return;
     if(l == r) {
