@@ -43,7 +43,7 @@ private:
 
     T query(int a, int b, int node, int l, int r) {
         if (l > b || r < a) {
-            return NINF;
+            return ninf;
         }
         if (l >= a && r <= b) {
             return seg[node];
@@ -51,9 +51,9 @@ private:
         int mid = (l + r) / 2;
         int n1 = query(a, b, node * 2, l, mid);
         int n2 = query(a, b, node * 2 + 1, mid + 1, r);
-        if (n1 == NINF)
+        if (n1 == ninf)
             return n2;
-        if (n2 == NINF)
+        if (n2 == ninf)
             return n1;
         return f(n1, n2);
     }
