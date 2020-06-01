@@ -1,14 +1,15 @@
 int SZ;
 vector<int> seg;
+int arr[];
 
 void setSize(int sz){
     SZ = sz;
     seg.resize(SZ*4);
 }
-void build(int sz, int arr[]){
+void build(int sz){
     SZ = sz;
     seg.resize(SZ*4);
-    bld(1, 0, SZ-1, arr);
+    bld(1, 0, SZ-1);
 }
 int query(int a, int b){
     return qry(a, b, 1, 0, SZ-1);
@@ -20,7 +21,7 @@ void update(int idx, int newVal){
 int f(int a, int b){
     return a + b; //change this for different problems, sum query, RMQ, etc.
 }
-void bld(int node, int l, int r, int arr[]) {
+void bld(int node, int l, int r) {
     if (l > r)
         return;
     if (l == r) {
