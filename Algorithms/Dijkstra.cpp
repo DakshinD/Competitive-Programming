@@ -2,6 +2,8 @@
 // O(n + mlogm). CAN'T be used on graph's with negative edge weights
 //utilizes negative edge weights in pq so it can sort correctly
 
+//if not using visited array, have if(dist[a] != dist) continue; after pop to achieve linearithmic time
+
 vector<pll> adjList[1000000];
 bool visited[1000000];
 ll distances[1000000];
