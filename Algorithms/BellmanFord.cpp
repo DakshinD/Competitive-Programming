@@ -5,12 +5,16 @@
 void bellmanFord(){
     distances[0] = 0;
     for(int i = 0; i < n; i++){
+        bool relax = false;
         for(auto e : edgeList){
             ll a, b, w;
             tie(a, b, w) = e;
-            if(distances[a]!=INF)
-                distances[b] = min(distances[b], distances[a]+w);
+            if(disstances[a] + w < distances[b]){
+                distances[b] = distances[a] + w;
+                relax = true;
+            }
         }
+        if(!relax) break;
     }
     return;
 }
@@ -19,7 +23,7 @@ void bellmanFord(){
 for(auto e : edgeList){
      ll a, b, w;
      tie(a, b, w) = e;
-     if(distances[a] != INF && distances[a] + w < distances[b]){
+     if(distances[a] + w < distances[b]){
          hasCycle = true;
          break;
      }
