@@ -28,6 +28,15 @@ for(auto e : edgeList){
      }
  }
 
+//to backtrack and find nodes in cycle
+for(int i = 0; i < n; i++) start = par[start];
+vector<int> ans;
+for(int i = par[start]; i != start; i = par[i]) ans.pb(i+1);
+reverse(all(ans));
+cout << start+1 << " ";
+for(int i = 0; i < ans.size(); i++) cout << ans[i] << " ";
+cout << start+1 << endl;
+
 //if you need to find if a cycle contains source and end node, you can do
 for(int i = 0; i < n-1; i++){
         for(auto e : edgeList){
