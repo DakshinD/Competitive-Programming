@@ -1,7 +1,6 @@
 //single source shortest path algo in O(NM), uses an edge list instead 
 //but can be used on graphs with negative edge weights unlike dijkstra. 
 //can identify positive/negative cycles
-//if you want t
 void bellmanFord(){
     distances[0] = 0;
     for(int i = 0; i < n; i++){
