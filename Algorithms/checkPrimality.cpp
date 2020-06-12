@@ -1,8 +1,12 @@
-bool isPrime(int num) {
-    for (int i = 2; i * i <= num; i++){ 
-        if (num %i == 0){
-            return false;
-        }
+bool isPrime(int n) { 
+    bool prime[n+1]; 
+    memset(prime, true, sizeof(prime)); 
+    for (int p=2; p*p<=n; p++) { 
+        if (prime[p] == true) { 
+            for (int i=p*p; i<=n; i += p) 
+                prime[i] = false; 
+        } 
     }
-    return true;
-}
+    if(prime[n]) return true;
+    return false;
+} 
