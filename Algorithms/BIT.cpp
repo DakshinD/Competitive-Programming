@@ -1,19 +1,20 @@
-struct BIT{ //remember to stay consistent whether you one index or 2 index, never use 0 indexing
-    int bit[ARRAY];
-    void c(){
-        for(int i = 0; i <= n; i++){
-            bit[i] = 0;
-        }
+// 1 - indexed BIT
+void c(){
+    for(int i = 0; i <=n; i++){
+        bit[i] = 0;
     }
-    void update(int x, int y){
-        for(;x <= MAXN; x += x & -x) //MAXN being a huge number, the restriction provided
-            bit[x] += y;
+}
+void update(int x, int val){
+    while(x<=n){
+        bit[x]+=val;
+        x+=x&(-x);
     }
-    int query(int x){
-        int sum = 0;
-        for(;x > 0; x -= x & -x){
-            sum += bit[x];
-        }
-        return sum;
+}
+int query(int pos){
+    int sum=0;
+    while(pos>0){
+        sum+=bit[pos];
+        pos-=pos&(-pos);
     }
-};
+    return sum;
+}
