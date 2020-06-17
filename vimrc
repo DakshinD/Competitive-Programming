@@ -47,16 +47,17 @@ map <C-a> <esc>ggVG<CR>
 
 if has("autocmd")
 	augroup templates
-		autocmd BufNewFile *.cpp exe "0r C:\\Users\\Dakshin Devanand\\cp\\templates\\".input("Template Name (cf - codeforces | usaco - usaco): ").".cpp" |
+		autocmd BufNewFile *.cpp exe "0r D:\\cp\\templates\\".input("Template Name (cf - codeforces | usaco - usaco | cses - cses): ").".cpp" |
 			\ set syntax=cpp |
 			\ set filetype=cpp
 	augroup END
 endif
 
-autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++14 % -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F10> :!%:r<CR>
 autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $
-
+ 
+ 
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
 if &diffopt !~# 'internal'
@@ -94,3 +95,4 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
+
